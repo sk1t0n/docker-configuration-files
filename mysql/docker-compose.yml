@@ -1,16 +1,31 @@
-# Use root/example as user/password credentials
+# Use db/root/12345 as database/user/password credentials
 version: '3.1'
 
 services:
-  db:
-    image: mysql
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: on-failure
+    ports:
+      - '3306:3306'
     command: --default-authentication-plugin=mysql_native_password
-    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: db
     volumes:
-      - mysqldata:/var/lib/mysql:rw
-    network_mode: 'host'
+      - mysql_data:/var/lib/mysql:rw
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: on-failure
+    ports:
+      - '127.0.0.1:8080:80'
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    depends_on:
+      - mysql
 
 volumes:
-  mysqldata: {}
+  mysql_data:
+    driver: local

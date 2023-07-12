@@ -2,11 +2,11 @@
 
 Useful docker images
 
-## Create and start containers
+## Create and start containers in Background
 
 ```sh
 cd dirname
-docker-compose up
+docker-compose up -d
 ```
 
 ## Start containers

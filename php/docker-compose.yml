@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    ports:
+      - '8080:80'
+      - '44300:443'
+    volumes:
+      - ./:/var/www/app
+      - ./docker/nginx:/etc/nginx/conf.d
+    networks:
+      - php-nginx-network
+    depends_on:
+      - php
+
+  php:
+    container_name: php
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    ports:
+      - '9000:9000'
+    volumes:
+      - ./:/var/www/app
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+    networks:
+      - php-nginx-network
+
+networks:
+  php-nginx-network:
+    driver: bridge

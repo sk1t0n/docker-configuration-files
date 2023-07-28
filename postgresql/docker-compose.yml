@@ -27,12 +27,15 @@ services:
       - postgresql_data:/var/lib/postgresql/data:rw
     depends_on:
       - pgbouncer
-  adminer:
-    image: adminer:latest
-    container_name: adminer
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
     restart: on-failure
     ports:
-      - '8081:8080'
+      - '8081:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: 12345
     depends_on:
       - postgresql
 

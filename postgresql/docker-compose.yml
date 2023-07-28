@@ -1,7 +1,18 @@
 # Use postgres/postgres/12345 database/user/password credentials
-version: '3.1'
+version: '3.8'
 
 services:
+  pgbouncer:
+    image: bitnami/pgbouncer:1
+    container_name: pgbouncer
+    restart: on-failure
+    ports:
+      - '6432:6432'
+    environment:
+      POSTGRESQL_USERNAME: postgres
+      POSTGRESQL_PASSWORD: 12345
+      POSTGRESQL_DATABASE: postgres
+      PGBOUNCER_IGNORE_STARTUP_PARAMETERS: extra_float_digits
   postgresql:
     image: postgres:15
     container_name: postgres
@@ -16,16 +27,14 @@ services:
       - postgresql_data:/var/lib/postgresql/data:rw
     depends_on:
       - pgbouncer
-  pgbouncer:
-    image: bitnami/pgbouncer:1
-    container_name: pgbouncer
+  adminer:
+    image: adminer:latest
+    container_name: adminer
     restart: on-failure
     ports:
-      - '6432:6432'
-    environment:
-      POSTGRESQL_USERNAME: postgres
-      POSTGRESQL_PASSWORD: 12345
-      POSTGRESQL_DATABASE: postgres
+      - '8081:8080'
+    depends_on:
+      - postgresql
 
 volumes:
   postgresql_data:

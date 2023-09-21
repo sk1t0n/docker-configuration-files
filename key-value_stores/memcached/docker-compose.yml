@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  memcached:
+    image: memcached:alpine
+    container_name: memcached
+    restart: on-failure
+    ports:
+      - '11211:11211'

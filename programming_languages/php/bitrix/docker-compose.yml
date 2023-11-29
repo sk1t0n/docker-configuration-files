@@ -1,0 +1,52 @@
+# Use db/root/12345 as database/user/password credentials
+version: '3.8'
+
+services:
+  bitrix:
+    container_name: bitrix
+    build: .
+    restart: on-failure
+    volumes:
+      - ./bitrix/:/var/www/html/
+      - ./php/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - '8080:80'
+    networks:
+      - bitrix-network
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: on-failure
+    ports:
+      - '3306:3306'
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: db
+    volumes:
+      - mysql_data:/var/lib/mysql:rw
+    networks:
+      - bitrix-network
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: on-failure
+    ports:
+      - '8081:80'
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    networks:
+      - bitrix-network
+    depends_on:
+      - mysql
+
+networks:
+  bitrix-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

@@ -26,7 +26,8 @@ services:
       MYSQL_ROOT_PASSWORD: 12345
       MYSQL_DATABASE: db
     volumes:
-      - mysql_data:/var/lib/mysql:rw
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - mysql_data:/var/lib/mysql
     networks:
       - bitrix-network
   phpmyadmin:

@@ -8,7 +8,7 @@ RUN apt update && apt install zip unzip -y && \
     install-php-extensions bcmath ctype fileinfo json mbstring openssl \
     pdo pdo_mysql mysqli tokenizer xml gd imagick opcache intl zip && \
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash && \
-    apt install nodejs && \
+    apt install nodejs -y && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer

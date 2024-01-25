@@ -7,7 +7,7 @@ services:
     build: .
     restart: on-failure
     volumes:
-      - ./wordpress/:/var/www/html/
+      - ./wordpress/:/var/www/html:rw
     ports:
       - '8080:80'
     networks:
@@ -25,7 +25,7 @@ services:
       MYSQL_ROOT_PASSWORD: 12345
       MYSQL_DATABASE: db
     volumes:
-      - mysql_data:/var/lib/mysql:rw
+      - mysql_data:/var/lib/mysql
     networks:
       - wordpress-network
   phpmyadmin:

@@ -11,6 +11,8 @@ RUN apt update && apt install zip unzip -y && \
     apt install nodejs -y && \
     rm -rf /var/lib/apt/lists/*
 
+RUN a2enmod rewrite
+
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 USER 1000:1000
 

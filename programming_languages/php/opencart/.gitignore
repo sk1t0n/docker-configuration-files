@@ -1,0 +1,50 @@
+# Config and Htaccess Files
+/opencart/.htaccess
+/opencart/config.php
+/opencart/admin/config.php
+
+# Image Cache Files
+/opencart/image/cache/*
+!/opencart/image/cache/index.html
+
+# Backup Files
+/opencart/system/storage/backup/*
+!/opencart/system/storage/backup/index.html
+
+# System Cache Files
+/opencart/system/storage/cache/*
+!/opencart/system/storage/cache/index.html
+
+# Download Files
+/opencart/system/storage/download/*
+!/opencart/system/storage/download/index.html
+
+# Log Files
+/opencart/system/storage/logs/*
+!/opencart/system/storage/logs/index.html
+
+# Marketplace Files
+# /opencart/system/storage/marketplace/*
+# !/opencart/system/storage/marketplace/index.html
+
+# Session Files
+/opencart/system/storage/session/*
+!/opencart/system/storage/session/index.html
+
+# Upload Files
+/opencart/system/storage/upload/*
+!/opencart/system/storage/upload/index.html
+
+# CSS Files
+/opencart/catalog/view/stylesheet/stylesheet.css
+
+# Storage
+/storage
+
+# IDE Project files
+/.idea/*
+/.vscode/*
+/.DS_Store
+/.cache
+/.php-cs-fixer.cache
+/tools

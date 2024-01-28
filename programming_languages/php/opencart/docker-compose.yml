@@ -1,0 +1,52 @@
+# Use db/root/12345 as database/user/password credentials
+version: '3.8'
+
+services:
+  opencart:
+    container_name: opencart
+    build: .
+    restart: on-failure
+    volumes:
+      - ./opencart/:/var/www/html:rw
+      - ./storage/:/var/www/storage:rw
+    ports:
+      - '8080:80'
+    networks:
+      - opencart-network
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: on-failure
+    ports:
+      - '3306:3306'
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: db
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - opencart-network
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: on-failure
+    ports:
+      - '8081:80'
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    networks:
+      - opencart-network
+    depends_on:
+      - mysql
+
+networks:
+  opencart-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local

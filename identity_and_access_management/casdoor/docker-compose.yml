@@ -1,0 +1,44 @@
+# MySQL: casdoor/root/12345
+# Casdoor: admin/123
+version: '3.8'
+
+services:
+  casdoor:
+    image: casbin/casdoor:latest
+    container_name: casdoor
+    restart: on-failure
+    ports:
+      - '8000:8000'
+    depends_on:
+      - mysql
+    environment:
+      RUNNING_IN_DOCKER: true
+    volumes:
+      - ./casdoor_conf:/conf/
+  mysql:
+    image: mysql:8
+    container_name: casdoor_mysql
+    restart: on-failure
+    ports:
+      - '3306:3306'
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: casdoor
+    volumes:
+      - casdoor_mysql:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: casdoor_phpmyadmin
+    restart: on-failure
+    ports:
+      - '8001:80'
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    depends_on:
+      - mysql
+
+volumes:
+  casdoor_mysql:
+    driver: local

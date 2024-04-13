@@ -1,4 +1,4 @@
-# docker-images
+# docker-configuration-files
 
 Docker and Docker Compose configuration files for popular software (MySQL/PostgreSQL/MongoDB, Redis/Garnet/KeyDB, RabbitMQ/Kafka, Keycloak/Casdoor and other).
 

@@ -5,7 +5,7 @@ services:
   pgbouncer:
     image: bitnami/pgbouncer:1
     container_name: pgbouncer
-    restart: on-failure
+    restart: unless-stopped
     ports:
       - '6432:6432'
     environment:
@@ -13,10 +13,12 @@ services:
       POSTGRESQL_PASSWORD: 12345
       POSTGRESQL_DATABASE: postgres
       PGBOUNCER_IGNORE_STARTUP_PARAMETERS: extra_float_digits
+    depends_on:
+      - postgresql
   postgresql:
     image: postgres:15
     container_name: postgres
-    restart: on-failure
+    restart: unless-stopped
     ports:
       - '5432:5432'
     environment:
@@ -24,21 +26,23 @@ services:
       POSTGRES_PASSWORD: 12345
       POSTGRES_DB: postgres
     volumes:
-      - postgresql_data:/var/lib/postgresql/data:rw
-    depends_on:
-      - pgbouncer
+      - postgresql_data:/var/lib/postgresql/data
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: pgadmin
-    restart: on-failure
+    restart: unless-stopped
     ports:
-      - '8081:80'
+      - '5050:5050'
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
       PGADMIN_DEFAULT_PASSWORD: 12345
+      PGADMIN_LISTEN_ADDRESS: 0.0.0.0
+      PGADMIN_LISTEN_PORT: 5050
+    volumes:
+      - pgadmin_data:/root/.pgadmin
     depends_on:
       - postgresql
 
 volumes:
   postgresql_data:
-    driver: local
+  pgadmin_data:

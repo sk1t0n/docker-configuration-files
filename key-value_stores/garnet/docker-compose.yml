@@ -4,22 +4,21 @@ services:
   garnet:
     image: ghcr.io/microsoft/garnet
     container_name: garnet
-    restart: on-failure
+    restart: unless-stopped
     ulimits:
       memlock: -1
     ports:
       - '6379:6379'
     volumes:
-      - garnetdata:/data
+      - garnet_data:/data
   redisinsight:
     image: redis/redisinsight:latest
     container_name: redisinsight
-    restart: on-failure
+    restart: unless-stopped
     ports:
       - '5540:5540'
     depends_on:
       - garnet
 
 volumes:
-  garnetdata:
-    driver: local
+  garnet_data:

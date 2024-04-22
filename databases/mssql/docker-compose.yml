@@ -1,0 +1,18 @@
+# Use sa/qWeRtY_123 user/password credentials
+version: '3.8'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: mssql
+    restart: unless-stopped
+    ports:
+      - '1433:1433'
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'qWeRtY_123'
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+volumes:
+  mssql_data:

@@ -4,22 +4,21 @@ services:
   keydb:
     image: eqalpha/keydb:latest
     container_name: keydb
-    restart: on-failure
+    restart: unless-stopped
     command: keydb-server /etc/keydb/redis.conf --server-threads 4
     ports:
       - '6379:6379'
     volumes:
       - ./keydb/redis.conf:/etc/keydb/redis.conf
-      - keydbdata:/data
+      - keydb_data:/data
   redisinsight:
     image: redis/redisinsight:latest
     container_name: redisinsight
-    restart: on-failure
+    restart: unless-stopped
     ports:
       - '5540:5540'
     depends_on:
       - keydb
 
 volumes:
-  keydbdata:
-    driver: local
+  keydb_data:

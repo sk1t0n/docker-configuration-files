@@ -1,15 +1,19 @@
-version: '3.8'
-
 services:
-  clickhouse_server:
-    image: yandex/clickhouse-server
-    container_name: clickhouse_server
+  clickhouse:
+    image: clickhouse:latest
+    container_name: clickhouse
+    ulimits:
+      nofile: 262144
     restart: on-failure
     ports:
       - '8123:8123'
+      - '9000:9000'
+    environment:
+      CLICKHOUSE_PASSWORD: changeme
     volumes:
       - clickhouse_data:/var/lib/clickhouse
+      - clickhouse_logs:/var/log/clickhouse-server
 
 volumes:
   clickhouse_data:
-    driver: local
+  clickhouse_logs:

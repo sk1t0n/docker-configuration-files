@@ -1,0 +1,15 @@
+services:
+  valkey:
+    image: valkey/valkey:latest
+    container_name: valkey
+    restart: on-failure
+    ports:
+      - '6379:6379'
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    container_name: redisinsight
+    restart: on-failure
+    ports:
+      - '5540:5540'
+    depends_on:
+      - valkey

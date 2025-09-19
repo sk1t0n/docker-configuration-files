@@ -1,0 +1,16 @@
+# Credentials: YOUR_SECURE_MASTER_KEY
+
+services:
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: meilisearch
+    restart: on-failure
+    ports:
+      - '7700:7700'
+    volumes:
+      - meili_data:/meili_data
+    environment:
+      - MEILI_MASTER_KEY=YOUR_SECURE_MASTER_KEY
+
+volumes:
+  meili_data:

@@ -1,0 +1,26 @@
+# Credentials: user/password
+
+services:
+  nats:
+    image: nats:latest
+    container_name: nats
+    restart: on-failure
+    ports:
+      - '4222:4222'
+      - '8222:8222'
+    command: ['--config', '/etc/nats/nats-server.conf']
+    volumes:
+      - ./nats.conf:/etc/nats/nats-server.conf
+  nui:
+    image: ghcr.io/nats-nui/nui:latest
+    container_name: nui
+    restart: on-failure
+    ports:
+      - '31311:31311'
+    volumes:
+      - nui_db:/db
+    depends_on:
+      - nats
+
+volumes:
+  nui_db:

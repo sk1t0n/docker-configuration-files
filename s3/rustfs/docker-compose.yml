@@ -1,0 +1,14 @@
+# Credentials: rustfsadmin/rustfsadmin
+
+services:
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: rustfs
+    restart: on-failure
+    ports:
+      - '9000:9000'
+    volumes:
+      - rustfs_data:/data
+
+volumes:
+  rustfs_data:

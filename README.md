@@ -1,6 +1,6 @@
 # docker-configuration-files
 
-Docker & Docker Compose configuration files for popular software (MySQL/PostgreSQL/ClickHouse/MongoDB, Redis/Valkey/Garnet/KeyDB, RustFS, Meilisearch, RabbitMQ/Kafka/NATS, Keycloak/Casdoor, Go, PHP (Nginx/Apache) and other).
+Docker & Docker Compose configuration files for popular software (MySQL/PostgreSQL/ClickHouse/MongoDB, Redis/Valkey/Garnet/KeyDB, RustFS, Meilisearch, RabbitMQ/Kafka/NATS, Prometheus/Grafana/Loki/Alloy, Keycloak/Casdoor, Go, PHP (Nginx/Apache) and other).
 
 ## Create and start containers in Background
 

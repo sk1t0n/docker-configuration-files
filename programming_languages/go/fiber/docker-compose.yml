@@ -1,0 +1,6 @@
+services:
+  fiber_app:
+    build: .
+    container_name: fiber_app
+    ports:
+      - '8080:8080'
